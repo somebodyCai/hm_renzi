@@ -42,6 +42,11 @@ export const constantRoutes = [
     component: () => import('@/views/404'),
     hidden: true
   },
+  {
+    path: '/test',
+    name: 'test',
+    component: () => import('@/views/test.vue')
+  },
 
   {
     path: '/',
