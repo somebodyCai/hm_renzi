@@ -7,7 +7,7 @@
       </el-col>
       <el-col :span="4">
         <el-row type="flex" justify="end">
-          <!-- 两个内容 -->
+          <!-- 两列 -->
           <el-col>{{ treeNode.manager }}</el-col>
           <el-col>
             <!-- 下拉菜单 element -->
