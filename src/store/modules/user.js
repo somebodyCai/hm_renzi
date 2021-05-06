@@ -24,7 +24,7 @@ const actions = {
   async login(store, data) {
     try {
       const res = await login(data)
-      console.log(res)
+      // console.log(res)
       store.commit('setToken', res)
       setTimeOut()
     } catch (error) {
@@ -38,7 +38,7 @@ const actions = {
     const userDetail = await getUserDetail(userInfo.userId)
     // 拼接用户信息
     const data = { ...userInfo, ...userDetail }
-    console.log(data)
+    // console.log(data)
     // 调用 mutation 修改用户信息
     store.commit('setUserInfo', data)
   },
