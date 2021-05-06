@@ -55,8 +55,9 @@
   </div>
 </template>
 
+
 <script>
-// import { validmobile } from '@/utils/validate'
+// import { validmobile } from '@/utils/validate' 
 
 export default {
   name: 'Login',
@@ -98,12 +99,14 @@ export default {
         this.$refs.password.focus()
       })
     },
+    // 点击登录功能业务
     async handleLogin() {
       // login(this.loginForm)
       await this.$refs.loginForm.validate()
       this.loading = true
       await this.$store.dispatch('user/login', this.loginForm)
       this.loading = false
+      this.$router.push('/')
     }
   }
 }

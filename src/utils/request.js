@@ -1,6 +1,6 @@
 import axios from 'axios'
-
 import { Message } from 'element-ui'
+import store from '@/store'
 
 // create an axios instance  创建请求实例
 const service = axios.create({
@@ -10,7 +10,17 @@ const service = axios.create({
 })
 
 // request interceptor 请求拦截器
-service.interceptors.request.use(
+service.interceptors.request.use(config => {
+  const token = store.getters.token
+
+  if (token) {
+    config.headers.Authorization = 'Bearer ' + token
+  }
+
+  return config
+}, err => {
+  console.log(err)
+}
 )
 
 // response interceptor 响应拦截器
