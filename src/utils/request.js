@@ -1,6 +1,15 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
 import store from '@/store'
+import router from '@/router/index.js'
+import { getTimeOut } from '@/utils/auth.js'
+
+const checkTimeOut = function() {
+  const loginTime = getTimeOut()
+  const requestTime = (new Date()).getTime()
+  const overTime = 7200 * 1000
+  return requestTime - loginTime > overTime
+}
 
 // create an axios instance  创建请求实例
 const service = axios.create({
@@ -14,7 +23,15 @@ service.interceptors.request.use(config => {
   const token = store.getters.token
 
   if (token) {
-    config.headers.Authorization = 'Bearer ' + token
+    if (checkTimeOut()) {
+      // console.log(3333)
+      store.dispatch('user/logout')
+      router.push('/login')
+      Message('token已失效，请重新登录！')
+      return Promise.reject(new Error('token已失效，请重新登录！'))
+    } else {
+      config.headers.Authorization = 'Bearer ' + token
+    }
   }
 
   return config
@@ -34,7 +51,12 @@ service.interceptors.response.use(
       return Promise.reject(new Error(message))
     }
   }, err => {
-    Message(err)
+    if (err.response && err.response.data && err.response.data.code === 10002) {
+      store.dispatch('user/logout')
+      router.push('/login')
+      // Message('token已失效，请重新登录！')
+    }
+    Message(err.message)
     return Promise.reject(err)
   }
 )

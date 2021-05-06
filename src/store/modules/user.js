@@ -1,5 +1,5 @@
 import { login, getUserInfo, getUserDetail } from '@/api/user.js'
-import { setToken, getToken } from '@/utils/auth.js'
+import { setToken, getToken, removeToken, setTimeOut } from '@/utils/auth.js'
 const state = {
   token: getToken(),
   userInfo: {}
@@ -11,6 +11,7 @@ const mutations = {
   },
   removeToken(state) {
     state.token = null
+    removeToken()
   },
   setUserInfo(state, data) {
     state.userInfo = { ...data }
@@ -25,6 +26,7 @@ const actions = {
       const res = await login(data)
       console.log(res)
       store.commit('setToken', res)
+      setTimeOut()
     } catch (error) {
       console.log(error)
     }
@@ -39,6 +41,10 @@ const actions = {
     console.log(data)
     // 调用 mutation 修改用户信息
     store.commit('setUserInfo', data)
+  },
+  logout(store) {
+    store.commit('removeToken')
+    store.commit('removeUserInfo')
   }
 }
 

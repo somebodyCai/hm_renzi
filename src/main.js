@@ -35,6 +35,10 @@ Vue.use(ElementUI, { locale })
 
 Vue.config.productionTip = false
 
+import { imgerr } from '@/utils/directives.js'
+
+Vue.directive('imgerr', imgerr)
+
 new Vue({
   el: '#app',
   router,

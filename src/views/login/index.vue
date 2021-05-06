@@ -55,9 +55,8 @@
   </div>
 </template>
 
-
 <script>
-// import { validmobile } from '@/utils/validate' 
+// import { validmobile } from '@/utils/validate'
 
 export default {
   name: 'Login',
