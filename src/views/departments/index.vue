@@ -19,20 +19,32 @@
 
 <script>
 import treeTool from './component/treeTool.vue'
+import { getDepartment } from '@/api/departments'
 export default {
   components: {
     treeTool
   },
   data() {
     return {
-      departs: [{ name: '总裁办', manager: '曹操', children: [{ name: '董事会', manager: '曹丕' }] },
-        { name: '行政部', manager: '刘备' },
-        { name: '人事部', manager: '孙权' }],
+      departs: [],
       defaultProps: {
         label: 'name' // 表示 从这个属性显示内容
       }
     }
+  },
+  mounted() {
+    // 页面加载后调用 getDepartment 获取部门数据 实现页面动态渲染
+    this.getDepartment()
+  },
+  // 获取部门数据函数封装
+  methods: {
+    async  getDepartment() {
+      const res = await getDepartment()
+      console.log(res)
+      this.departs = res.depts
+    }
   }
+
 }
 
 </script>

@@ -1,5 +1,6 @@
 import request from '@/utils/request'
 
+// 用户登录请求
 export function login(data) {
   return request({
     url: 'sys/login',
@@ -8,6 +9,7 @@ export function login(data) {
   })
 }
 
+// 获取用户信息
 export const getUserInfo = () => {
   return request({
     url: '/sys/profile',
@@ -15,6 +17,7 @@ export const getUserInfo = () => {
   })
 }
 
+// 根据 id 获取用户详情信息
 export const getUserDetail = (id) => {
   return request({
     url: '/sys/user/' + id
